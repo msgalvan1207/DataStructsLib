@@ -228,7 +228,7 @@ class SingleLinkedList():
             IndexError: se lanza si pos es menor a 0 o mayor a la longitud de la lista
 
         Returns:
-            _type_: el contenido del elemento en la posición pos. Su tipo es igual a SingleLinkedList._elementClass
+            Node._element.__class__: el contenido del elemento en la posición pos. Su tipo es igual a SingleLinkedList._elementClass
         """
         if self.isEmtpy():
             raise IndexError("List is emtpy")
