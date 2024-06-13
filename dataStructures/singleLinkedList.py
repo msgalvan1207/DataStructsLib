@@ -2,6 +2,49 @@
 
 import copy
 
+class Node():
+    
+    def __init__(self, content) -> None:
+        
+        self._content = content
+        
+        self._next = None
+    
+    def assignNext(self,node) -> None:
+        self._next = node
+    
+    def hasNext(self) -> bool:
+        return bool(self._next)
+    
+    #Get next could be changed to __next__ function to use it using next(Node)
+    def getNext(self) -> 'Node'|None:
+        return self._next
+    
+    def getContent(self) -> any:
+        return self._content
+    
+    def changeContent(self, newContent) -> None:
+        self._content = newContent
+    
+    
+    #Overriding python functions
+    def __str__(self) -> str:
+        return f"Node(content: {self._content}, next: {self._next})"
+    
+    def __format__(self, format_spec: str) -> str:
+        if format_spec == "content":
+            return f"{self._content}"
+        elif format_spec == "next":
+            if self._next:
+                return f"{self._next:content}"
+            else:
+                return f"{self._next}"
+        else:
+            return f"Node (content: {self._content}, next: {self._next})"
+    
+    def __repr__(self) -> str:
+        return f'Node({repr(self._content)})'
+
 
 class SingleLinkedList():
     
@@ -37,7 +80,7 @@ class SingleLinkedList():
     
     #public methods for accesing the list content and functions
     
-    def insertFirst(self,element):
+    def insertFirst(self,element) -> None:
         """inserta un elemento a la lista en la primera posición
 
         Args:
@@ -62,7 +105,7 @@ class SingleLinkedList():
         
         self._length += 1
     
-    def insertLast(self, element):
+    def insertLast(self, element) -> None:
         """Inserta un elemento al final de la lista
 
         Args:
@@ -88,7 +131,7 @@ class SingleLinkedList():
         
         self._length += 1
     
-    def insertElement(self, pos: int, element):
+    def insertElement(self, pos: int, element) -> None:
         """Inserta un elemento en una posición dada
 
         Args:
@@ -134,7 +177,7 @@ class SingleLinkedList():
         """
         return self._length
     
-    def firstElement(self):
+    def firstElement(self) -> any:
         """Función que devuelve el primer elemento de la lista. Especificamente su contenido
 
         Returns:
@@ -145,7 +188,7 @@ class SingleLinkedList():
         else:
             return None
     
-    def lastElement(self):
+    def lastElement(self) -> any:
         """Funcion que devuelve el último elemento de la lista. Especificamente su contenido
 
         Returns:
@@ -156,7 +199,7 @@ class SingleLinkedList():
         else:
             return None
     
-    def getElement(self, pos: int):
+    def getElement(self, pos: int) -> any:
         """función que devuelve el contenido de un elemento en una posición dada
 
         Args:
@@ -167,7 +210,7 @@ class SingleLinkedList():
         """
         return self._getElement(pos).getContent()
     
-    def deleteFirst(self):
+    def deleteFirst(self) -> any:
         """Función que elimina el primer elemento de la lista y devuelve su contenido
 
         Raises:
@@ -192,7 +235,7 @@ class SingleLinkedList():
             self._length -= 1
             return firstElement.getContent()
     
-    def deleteLast(self):
+    def deleteLast(self) -> any:
         """Función que elimina el último elemento de la lista y devuelve su contenido
 
         Raises:
@@ -217,7 +260,7 @@ class SingleLinkedList():
             self._length -= 1
             return lastElement.getContent()
     
-    def deleteElement(self, pos: int):
+    def deleteElement(self, pos: int) -> any:
         """Función que elimina un elemento en una posición dada y devuelve su contenido
 
         Args:
@@ -252,7 +295,7 @@ class SingleLinkedList():
             self._length -= 1
             return posElement.getContent()
     
-    def changeContent(self, pos: int, newContent):
+    def changeContent(self, pos: int, newContent) -> None:
         """Funcion que cambia el contenido de un elemento en una posición dada
 
         Args:
@@ -263,7 +306,7 @@ class SingleLinkedList():
         assert(isinstance(pos, int)), f"pos must be an integer, but got {repr(pos)} of class {pos.__class__}"
         self._getElement(pos).changeContent(newContent)
     
-    def exchange(self, pos1: int, pos2: int):
+    def exchange(self, pos1: int, pos2: int) -> None:
         """Función que intercambia los contenidos de dos elementos en posiciones dadas
 
         Args:
@@ -280,7 +323,7 @@ class SingleLinkedList():
         node1.changeContent(content2)
         node2.changeContent(content1)
     
-    def subList(self, pos1: int, pos2: int):
+    def subList(self, pos1: int, pos2: int) -> 'SingleLinkedList':
         """Función que devuelve una sublista de la lista original desde una posición pos1 hasta una posición pos2
 
         Args:
@@ -317,7 +360,7 @@ class SingleLinkedList():
         
         return newList
     
-    def copy(self):
+    def copy(self) -> 'SingleLinkedList':
         """Funcion que genera una copia profunda de la listas
 
         Returns:
@@ -335,7 +378,7 @@ class SingleLinkedList():
         for element in otherList:
             self.insertLast(element)
     
-    def reverse(self):
+    def reverse(self) -> None:
         """Función que invierte el orden de los elementos de la lista original
         """
         if (self._length <= 1):
@@ -352,7 +395,7 @@ class SingleLinkedList():
             self._firstElement = prevElement
     
     #private methods:
-    def _getElement(self, pos: int):
+    def _getElement(self, pos: int) -> Node|None:
         """Funcion que devuelve un nodo en una posición dada
 
         Args:
@@ -386,7 +429,7 @@ class SingleLinkedList():
     
     
     #Over riding python native methods
-    def __len__(self):
+    def __len__(self) -> int:
         return self.size()
     
     def __iter__(self):
@@ -401,30 +444,30 @@ class SingleLinkedList():
             self._current = self._current.getNext()
             return node.getContent()
     
-    def __str__(self):
+    def __str__(self) -> str:
         elements = ', '.join(repr(node) for node in self)
         return f"[{elements}]"
     
-    def __repr__(self):
+    def __repr__(self) -> str:
         if self._length != 0:
             elements = ', '.join(repr(node) for node in self)
             return f'SingleLinkedList(first element: {self._firstElement:content}, last element: {self._lastElement:content}, elements:[{elements}], size: {self._length})'
         else:
             return f'SingleLinkedList(first element: {None}, last element: {None}, elements:[ ], size: {self._length})'
     
-    def __getitem__(self,key):
+    def __getitem__(self,key) -> any:
         return self.getElement(key)
     
-    def __setitem__(self,key, value):
+    def __setitem__(self,key, value) -> None:
         self.insertElement(key, value)
     
-    def __delitem__(self, key):
+    def __delitem__(self, key) -> None:
         self.deleteElement(key)
     
-    def __reverse__(self):
+    def __reverse__(self) -> None:
         self.reverse()
     
-    def __contains__(self, item):
+    def __contains__(self, item) -> bool:
         for element in self:
             try:
                 if item == element:
@@ -432,54 +475,7 @@ class SingleLinkedList():
             except:
                 pass
         return False
-    
-    
-    
-    
 
-class Node():
-    
-    def __init__(self, content) -> None:
-        
-        self._content = content
-        
-        self._next = None
-    
-    def assignNext(self,node):
-        self._next = node
-    
-    def hasNext(self):
-        return bool(self._next)
-    
-    #Get next could be changed to __next__ function to use it using next(Node)
-    def getNext(self):
-        return self._next
-    
-    def getContent(self):
-        return self._content
-    
-    def changeContent(self, newContent):
-        self._content = newContent
-    
-    
-    #Overriding python functions
-    def __str__(self):
-        return f"Node(content: {self._content}, next: {self._next})"
-    
-    def __format__(self, format_spec: str) -> str:
-        if format_spec == "content":
-            return f"{self._content}"
-        elif format_spec == "next":
-            if self._next:
-                return f"{self._next:content}"
-            else:
-                return f"{self._next}"
-        else:
-            return f"Node (content: {self._content}, next: {self._next})"
-    
-    def __repr__(self):
-        return f'Node({repr(self._content)})'
-        
 
 
 

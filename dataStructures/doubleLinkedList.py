@@ -1,6 +1,66 @@
 #Double linked list
 
 
+class Node():
+    
+    def __init__(self, content) -> None:
+        
+        self._content = content
+        
+        self._next = None
+        self._prev = None
+    
+    
+    def putNext(self, node: 'Node') -> None:
+        self._next = node
+    
+    def putPrev(self, node: 'Node') -> None:
+        self._prev = node
+    
+    def hasNext(self) -> bool:
+        return bool(self._next)
+    
+    def hasPrev(self) -> bool:
+        return bool(self._prev)
+    
+    def getNext(self) -> 'Node':
+        return self._next
+    
+    def getPrev(self) -> 'Node':
+        return self._prev
+    
+    def changeContent(self, newContent) -> None:
+        self._content = newContent
+    
+    def getContent(self) -> any:
+        return self._content
+    
+    
+    #Overriding python magic  methods
+    
+    def __str__(self) -> str:
+        return f"Node(content: {repr(self._content)}, prev: {self._prev}, next: {self._next})"
+    
+    def __format__(self, format_spec: str) -> str:
+        if format_spec == "content":
+            return f"{repr(self._content)}"
+        elif format_spec == "next":
+            if self._next:
+                return f"{self._next:content}"
+            else:
+                return f"{self._next}"
+        elif format_spec == "prev":
+            if self._prev:
+                return f"{self._prev:content}"
+            else:
+                return f"{self._prev}"
+        else: 
+            return f"Node(content: {self:content}, prev: {self:prev}, next: {self:next})"
+    
+    def __repr__(self) -> str:
+        return f"Node({repr(self._content)})"
+
+
 class DoubleLinkedList():
     
     def __init__(self, initial_elements = None, elementClass = None):
@@ -13,7 +73,7 @@ class DoubleLinkedList():
         self._current = None
     
     
-    def insertFirst(self, element):
+    def insertFirst(self, element) -> None:
         newElement = Node(element)
         
         if self._length == 0:
@@ -27,7 +87,7 @@ class DoubleLinkedList():
         
         self._length += 1
     
-    def insertLast(self, element):
+    def insertLast(self, element) -> None:
         newElement = Node(element)
         
         if self._length == 0:
@@ -42,7 +102,7 @@ class DoubleLinkedList():
         
         self._length += 1
     
-    def insertElement(self, pos: int, element):
+    def insertElement(self, pos: int, element) -> None:
         
         assert(isinstance(pos, int)), f"pos must be an integer but got {repr(pos)} of class {pos.__class__}"
         
@@ -81,10 +141,13 @@ class DoubleLinkedList():
     def isEmpty(self) -> bool:
         return not bool(self._length)
     
+    def size(self) -> int:
+        return self._length
+    
     
     #private methods:
     
-    def _getElement(self, pos: int, half: int = None):
+    def _getElement(self, pos: int, half: int = None) -> Node|None:
         
         if self.isEmpty():
             raise IndexError("List is emtpy")
@@ -124,14 +187,14 @@ class DoubleLinkedList():
     
     #Overriding python native methods
     
-    def __len__(self):
+    def __len__(self) -> int:
         return self.size()
     
     def __iter__(self):
         self._current = self._firstElement
         return self
     
-    def __next__(self):
+    def __next__(self) -> Node:
         if self._current is None:
             raise StopIteration
         else:
@@ -139,70 +202,9 @@ class DoubleLinkedList():
             self._current = self._current.getNext()
             return node
     
-    def __str__(self):
+    def __str__(self) -> str:
         elements = ', '.join(repr(node) for node in self)
         return f"[{elements}]"
-    
-
-
-class Node():
-    
-    def __init__(self, content) -> None:
-        
-        self._content = content
-        
-        self._next = None
-        self._prev = None
-    
-    
-    def putNext(self, node: 'Node'):
-        self._next = node
-    
-    def putPrev(self, node: 'Node'):
-        self._prev = node
-    
-    def hasNext(self) -> bool:
-        return bool(self._next)
-    
-    def hasPrev(self) -> bool:
-        return bool(self._prev)
-    
-    def getNext(self):
-        return self._next
-    
-    def getPrev(self):
-        return self._prev
-    
-    def changeContent(self, newContent):
-        self._content = newContent
-    
-    def getContent(self):
-        return self._content
-    
-    
-    #Overriding python magic  methods
-    
-    def __str__(self):
-        return f"Node(content: {repr(self._content)}, prev: {self._prev}, next: {self._next})"
-    
-    def __format__(self, format_spec: str) -> str:
-        if format_spec == "content":
-            return f"{repr(self._content)}"
-        elif format_spec == "next":
-            if self._next:
-                return f"{self._next:content}"
-            else:
-                return f"{self._next}"
-        elif format_spec == "prev":
-            if self._prev:
-                return f"{self._prev:content}"
-            else:
-                return f"{self._prev}"
-        else: 
-            return f"Node(content: {self:content}, prev: {self:prev}, next: {self:next})"
-    
-    def __repr__(self) -> str:
-        return f"Node({repr(self._content)})"
 
 
 
