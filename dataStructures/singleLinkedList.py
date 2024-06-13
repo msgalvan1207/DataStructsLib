@@ -118,7 +118,7 @@ class SingleLinkedList():
             newElement.assignNext(postNode)
             self._length += 1
     
-    def isEmtpy(self) -> bool:
+    def isEmpty(self) -> bool:
         """función que indica si la lista está vacía
 
         Returns:
@@ -176,7 +176,7 @@ class SingleLinkedList():
         Returns:
             _type_: el contenido del primer elemento de la lista. Su tipo es igual a SingleLinkedList._elementClass
         """
-        if self.isEmtpy():
+        if self.isEmpty():
             raise IndexError("List is emtpy")
 
         if self._firstElement is self._lastElement:
@@ -201,7 +201,7 @@ class SingleLinkedList():
         Returns:
             _type_: el contenido del último elemento de la lista. Su tipo es igual a SingleLinkedList._elementClass
         """
-        if self.isEmtpy():
+        if self.isEmpty():
             raise IndexError("List is Empty")
         if self._lastElement is self._firstElement:
             lastElement = self._lastElement
@@ -230,7 +230,7 @@ class SingleLinkedList():
         Returns:
             Node._element.__class__: el contenido del elemento en la posición pos. Su tipo es igual a SingleLinkedList._elementClass
         """
-        if self.isEmtpy():
+        if self.isEmpty():
             raise IndexError("List is emtpy")
         assert(isinstance(pos, int)), f"pos must be an integer, but got {repr(pos)} of class {pos.__class__}"
         if (pos < 0 or pos >= self._length):
@@ -296,7 +296,7 @@ class SingleLinkedList():
         Returns:
             SingleLinkedList: sublista de la lista original desde pos1 hasta pos2
         """
-        if self.isEmtpy():
+        if self.isEmpty():
             raise IndexError("List is empty")
         if (pos1 < 0 or pos1 >= self._length):
             raise IndexError("Position out of bounds: pos1")
@@ -365,7 +365,7 @@ class SingleLinkedList():
         Returns:
             Node: nodo en la posición pos
         """
-        if self.isEmtpy():
+        if self.isEmpty():
             raise IndexError("List is empty")
         assert(isinstance(pos, int)), f"pos must be an integer, but got {repr(pos)} of class {pos.__class__}"
         if (pos < 0 or pos >= self._length):

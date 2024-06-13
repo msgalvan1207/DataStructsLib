@@ -42,8 +42,90 @@ class DoubleLinkedList():
         
         self._length += 1
     
+    def insertElement(self, pos: int, element):
+        
+        assert(isinstance(pos, int)), f"pos must be an integer but got {repr(pos)} of class {pos.__class__}"
+        
+        if (pos < 0 or pos > self._length):
+            raise IndexError("Position out of bounds")
+        
+        if pos == 0:
+            self.insertFirst(element)
+        elif pos == self._length:
+            self.insertLast(element)
+        else:
+            half = self._length//2
+            newElement = Node(element)
+            if pos > half:
+                nextElement = self._getElement(pos, half)
+                prevElement = nextElement.getPrev()
+                
+                newElement.putNext(nextElement)
+                newElement.putPrev(prevElement)
+                
+                nextElement.putPrev(newElement)
+                prevElement.putNext(newElement)
+                
+                pass
+            else:
+                prevElement = self._getElement(pos-1, half)
+                nextElement = prevElement.getNext()
+                
+                newElement.putNext(nextElement)
+                newElement.putPrev(prevElement)
+                
+                nextElement.putPrev(newElement)
+                prevElement.putNext(newElement)
+                pass
+    
+    def isEmpty(self) -> bool:
+        return not bool(self._length)
+    
+    
+    #private methods:
+    
+    def _getElement(self, pos: int, half: int = None):
+        
+        if self.isEmpty():
+            raise IndexError("List is emtpy")
+        assert(isinstance(pos, int)), f"pos must be an integer, but got '{repr(pos)}' of class {pos.__class__}"
+        if (pos < 0 or pos >= self._length):
+            raise IndexError("Position out of bounds")
+        
+        if pos == 0:
+            return self._firstElement
+        elif pos == self._length - 1:
+            return self._lastElement
+        else:
+            if half is not None:
+                assert(isinstance(half, int) and not isinstance(half, bool)), f"half must be an integer, but got '{repr(half)}' of class {half.__class__}"
+                
+                if pos >= half:
+                    index = self._length - 1
+                    current_Node = self._lastElement
+                    while (index != pos):
+                        index -= 1
+                        current_Node = current_Node.getPrev()
+                    return current_Node
+                else:
+                    index = 0
+                    current_Node = self._firstElement
+                    while (index != pos):
+                        index += 1
+                        current_Node = current_Node.getNext()
+                    return current_Node
+            else:
+                index = 0
+                current_Node = self._firstElement
+                while (index != pos):
+                    index += 1
+                    current_Node = current_Node.getNext()
+                return current_Node
     
     #Overriding python native methods
+    
+    def __len__(self):
+        return self.size()
     
     def __iter__(self):
         self._current = self._firstElement
@@ -56,6 +138,11 @@ class DoubleLinkedList():
             node = self._current
             self._current = self._current.getNext()
             return node
+    
+    def __str__(self):
+        elements = ', '.join(repr(node) for node in self)
+        return f"[{elements}]"
+    
 
 
 class Node():
@@ -89,15 +176,18 @@ class Node():
     def changeContent(self, newContent):
         self._content = newContent
     
+    def getContent(self):
+        return self._content
+    
     
     #Overriding python magic  methods
     
     def __str__(self):
-        return f"Node(content: {self._content}, prev: {self._prev}, next: {self._next})"
+        return f"Node(content: {repr(self._content)}, prev: {self._prev}, next: {self._next})"
     
     def __format__(self, format_spec: str) -> str:
         if format_spec == "content":
-            return f"{self._content}"
+            return f"{repr(self._content)}"
         elif format_spec == "next":
             if self._next:
                 return f"{self._next:content}"
@@ -109,7 +199,10 @@ class Node():
             else:
                 return f"{self._prev}"
         else: 
-            return f"Node(content: {self._content}, prev: {self:prev}, next: {self:next})"
+            return f"Node(content: {self:content}, prev: {self:prev}, next: {self:next})"
+    
+    def __repr__(self) -> str:
+        return f"Node({repr(self._content)})"
 
 
 
@@ -117,15 +210,19 @@ if __name__ == "__main__":
     
     myList = DoubleLinkedList()
     
-    for i in range (4):
+    for i in range(3):
         myList.insertLast(i)
+        
+    
+    print(myList)
+    
+    myList.insertElement(4, "test")
+    
+    
+    print(myList)
+    
+    print("debug")
     
     for node in myList:
         print(node)
     
-    print("debug")
-    
-    print(myList._firstElement)
-    print(myList._lastElement)
-    
-    print(myList._length)
