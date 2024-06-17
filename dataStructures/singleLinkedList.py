@@ -1,6 +1,7 @@
 #Single linked list
 
 import copy
+from typing import Optional
 
 class Node():
     
@@ -17,7 +18,7 @@ class Node():
         return bool(self._next)
     
     #Get next could be changed to __next__ function to use it using next(Node)
-    def getNext(self) -> 'Node'|None:
+    def getNext(self) -> Optional['Node']:
         return self._next
     
     def getContent(self) -> any:
@@ -395,7 +396,7 @@ class SingleLinkedList():
             self._firstElement = prevElement
     
     #private methods:
-    def _getElement(self, pos: int) -> Node|None:
+    def _getElement(self, pos: int) -> Optional[Node]:
         """Funcion que devuelve un nodo en una posición dada
 
         Args:
@@ -487,9 +488,9 @@ if __name__ == "__main__":
     algo = SingleLinkedList([1,2,3,4])
     otro = SingleLinkedList([6,7,8,9,10])
     
-    algo.concatenate(otro)
+    algo.concatenate([1,2,3,4])
     
-    print(algo["pingu"])
+    print(repr(algo))
     
     
     
