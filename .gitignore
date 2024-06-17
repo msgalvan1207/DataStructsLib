@@ -1,1 +1,3 @@
 */__pycache__/
+lib_env/*
+dataStructuresLib.egg-info/*
