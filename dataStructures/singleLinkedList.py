@@ -482,7 +482,7 @@ class SingleLinkedList():
 
 if __name__ == "__main__":
     
-    
+    print("Hola")
     print(repr(SingleLinkedList()))
     
     algo = SingleLinkedList([1,2,3,4])
