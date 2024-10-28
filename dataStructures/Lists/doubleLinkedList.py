@@ -59,6 +59,9 @@ class Node():
     
     def __repr__(self) -> str:
         return f"Node({repr(self._content)})"
+    
+    def __hash__(self):
+        raise TypeError("unhashable type: 'doubleLinkedList Node'")
 
 
 class DoubleLinkedList():
@@ -205,6 +208,9 @@ class DoubleLinkedList():
     def __str__(self) -> str:
         elements = ', '.join(repr(node) for node in self)
         return f"[{elements}]"
+    
+    def __hash__(self):
+        raise TypeError("unhashable type: 'doubleLinkedList'")
 
 
 

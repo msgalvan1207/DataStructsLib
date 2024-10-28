@@ -1,7 +1,5 @@
 #Array List
 
-
-
 class ArrayList():
     
     def __init__(self, initial_elements = None, elementClass = None):
@@ -164,3 +162,6 @@ class ArrayList():
             if item == element:
                 return True
         return False
+    
+    def __hash__(self):
+        raise TypeError("unhashable type: 'arrayList'")

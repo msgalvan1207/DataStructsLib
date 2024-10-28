@@ -45,6 +45,9 @@ class Node():
     
     def __repr__(self) -> str:
         return f'Node({repr(self._content)})'
+    
+    def __hash__(self):
+        raise TypeError("unhashable type: 'singleLinkedList Node'")
 
 
 class SingleLinkedList():
@@ -476,6 +479,9 @@ class SingleLinkedList():
             except:
                 pass
         return False
+    
+    def __hash__(self):
+        raise TypeError("unhashable type: 'singleLinkedList'")
 
 
 
