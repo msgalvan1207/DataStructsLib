@@ -374,8 +374,8 @@ if __name__ == "__main__":
 
     newTree = RBT()
 
-    for i in [10,15,18,25,28,38,40,50, {}]:
-        newTree.insert(i,"algo")
+    for i in [10,15,18,25,28,38,40,50]:
+        newTree.insert(i,i*2)
     
     print(repr(newTree))
 
